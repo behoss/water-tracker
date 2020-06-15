@@ -1,13 +1,122 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*:focus {
+  outline: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body,
+html {
+  /* border: 1px solid #ffffff; */
+  background: #53bfef 0% 0% no-repeat padding-box;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  max-width: 500px;
+  margin: auto;
+}
+
+/* BUTTONS */
+.btn {
+  background: none;
+  border: none;
+  color: none;
+  opacity: 0.75;
+  transition-duration: 0.1s;
+}
+.btn:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+/* GRID */
+.grid-wrapper {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  text-align: center;
+  align-items: center;
+  justify-items: center;
+}
+
+.left {
+  justify-self: start;
+}
+
+.right {
+  justify-self: end;
+}
+
+/* STATUS */
+.status-title {
+  font: Bold 40px/24px Roboto;
+}
+
+.status-text {
+  font: Regular 16px/19px Roboto;
+}
+
+/* MOTIVATION TEXT */
+.motivation-text {
+  text-align: center;
+  font: Medium 20px/24px Roboto;
+  animation: fadeIn ease 1s;
+}
+
+/* MAIN VIEW */
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+.edit {
+  align-self: flex-start;
+  position: relative;
+}
+/* .edit:before {
+  background-color: #000;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+  right: 0.5em;
+  margin-left: -50%;
+} */
+
+/* SCROLLBAR */
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+  margin: 5px 10px;
+  user-select: none;
+  cursor: pointer;
+  opacity: 0.5;
+  transition-duration: 0.2s;
+  min-height: 50px;
+}
+.menu-item:hover {
+  opacity: 1;
+}
+.menu-item.active {
+  font-size: 1.2em;
+  opacity: 1;
+}
+.menu-item-wrapper.active {
+  border: none;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -1,0 +1,21 @@
+<svg height="210" width="500">
+  <defs>
+    <filter id="fillpartial" primitiveUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+      <feFlood x="0%" y="0%" width="100%" height="100%" flood-color="red" />
+      <feOffset dy="0.5">
+        <animate attributeName="dy" from="1" to=".5" dur="3s" />
+      </feOffset>
+      <feComposite operator="in" in2="SourceGraphic" />
+      <feComposite operator="over" in2="SourceGraphic" />
+    </filter>
+  </defs>
+  <polygon filter="url(#fillpartial)" points="165.000, 185.000, 188.511, 197.361, 184.021, 171.180,
+ 203.042, 152.639,
+ 176.756, 148.820,
+ 165.000, 125.000,
+ 153.244, 148.820,
+ 126.958, 152.639,
+ 145.979, 171.180,
+ 141.489, 197.361,
+ 165.000, 185.000" style="fill:white;stroke:red;" />
+</svg>
