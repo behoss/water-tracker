@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "aws s3 cp --recursive ./build s3://water-tracker-ap",
+    "deploy": "aws s3 cp --recursive ./build s3://water-tracker-app",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "svgr": "svgr -d src/svg/ src/assets/"
