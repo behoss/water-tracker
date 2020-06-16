@@ -13,8 +13,8 @@ export const App = () => {
   const [bottleSize, setBottleSize] = useState(0.25);
   const [showModal, setShowModal] = useState(false);
 
+  // This gets user data upon first render
   useEffect(() => {
-    console.log("Getting data");
     getUserData();
   }, []);
 
@@ -25,10 +25,10 @@ export const App = () => {
   const getUserData = async () => {
     const response = await fetch(API_GATEWAY);
     const data = await response.json();
-    console.log(data.body);
     const { goal, total } = data.body;
     setGoal(goal);
     setTotal(total);
+    return data;
   };
 
   const putUserData = async ({ goal, total }) => {
@@ -40,10 +40,12 @@ export const App = () => {
       body: JSON.stringify({ goal, total }),
     });
     const data = await response.json();
-    console.log(data);
+    return data;
   };
 
   // HANDLERS
+
+  // When clicked on the plus button, then deduct the bottle size from total & update db and state & don't go above the goal
   const handleAdd = () => {
     if (total < goal) {
       // prevents the unnecessary API call after reaching the goal
@@ -59,6 +61,7 @@ export const App = () => {
     );
   };
 
+  // When clicked on the minus button, then add the bottle size to total & update db and state & don't go below 0
   const handleDeduct = () => {
     if (total > 0) {
       const update =
@@ -71,21 +74,25 @@ export const App = () => {
     );
   };
 
+  // When select bottle size, then convert it to liters & update state
   const handleSelect = (selectedValue) => {
     // get the value of the scroll bar and parse it to an integer, then to liters
     setBottleSize(parseInt(selectedValue) / 1000);
   };
 
+  // When clicked on x or the button, then close the modal
   const toggleModal = () => {
     setShowModal(!showModal);
   };
 
+  // When clicked outside, then close the modal
   const closeModal = (e) => {
     if (e.target.id === "outside") {
       toggleModal();
     }
   };
 
+  // When goal updated in modal, then update db & state, then reset total to 0
   const handleUpdate = (e) => {
     e.preventDefault();
     const value = +parseFloat(e.target.update.value).toFixed(2);
@@ -95,13 +102,13 @@ export const App = () => {
     toggleModal();
   };
 
+  // When clicked on edit button, then open modal
   const handleEdit = () => {
     setShowModal(true);
   };
 
   return (
-    <>
-      {/* <button onClick={() => setShowModal(true)}>Open Modal</button> */}
+    <div className="container">
       {showModal && (
         <Modal
           toggleModal={toggleModal}
@@ -119,8 +126,6 @@ export const App = () => {
         handleSelect={handleSelect}
       />
       <Buttons handleAdd={handleAdd} handleDeduct={handleDeduct} />
-    </>
+    </div>
   );
 };
-
-// SVGR https://www.robinwieruch.de/react-svg-icon-components

@@ -1,40 +1,55 @@
+//colors
+$color_picton_blue_approx: #53bfef;
+$white: #ffffff;
+$color_lochmara_approx: #088ecf;
+
+//fonts
+$font_0: Roboto;
+$font_1: sans-serif;
+
+//@extend-elements
+%extend_1 {
+  background: $color_picton_blue_approx 0 0 no-repeat padding-box;
+  margin: 0;
+  padding: 0;
+}
+
 *:focus {
   outline: 0;
 }
 
-body,
+body {
+  @extend %extend_1;
+}
 html {
-  background: #53bfef 0% 0% no-repeat padding-box;
-  color: #ffffff;
-  font-family: "Roboto", sans-serif;
+  @extend %extend_1;
+}
+.container {
+  background: $color_picton_blue_approx 0 0 no-repeat padding-box;
+  color: $white;
+  font-family: $font_0, $font_1;
   min-width: 350px;
   max-width: 500px;
   margin: auto;
+  padding: 0.5rem;
 }
-
 .border {
-  border: 0px solid #ffffff;
+  border: 0 solid $white;
 }
-
-/* BUTTONS */
 .btn {
   background: none;
   border: none;
   color: none;
-  padding: 1rem 0;
   opacity: 0.75;
   transition-duration: 0.1s;
+  &:hover {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  &:active {
+    transform: scale(0.95);
+  }
 }
-.btn:hover {
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-.btn:active {
-  transform: scale(0.95);
-}
-
-/* GRID */
 .grid-wrapper {
   display: grid;
   grid-gap: 1.5rem;
@@ -43,35 +58,26 @@ html {
   align-items: center;
   justify-items: center;
 }
-
 .left {
   justify-self: start;
 }
-
 .right {
   justify-self: end;
 }
-
-/* STATUS */
 .status-title {
   font-size: 2.5rem;
   font-weight: bold;
 }
-
 .status-text {
   font-size: 1rem;
   padding: 0 1rem;
 }
-
-/* MOTIVATION TEXT */
 .motivation-text {
   text-align: center;
   font-size: 1.25rem;
   font-weight: 500;
   animation: fadeIn ease 1s;
 }
-
-/* MAIN VIEW */
 .main {
   display: grid;
   grid-gap: 1.5rem;
@@ -79,29 +85,26 @@ html {
   text-align: center;
   align-items: center;
   justify-items: center;
+  margin: 2rem 0 1rem;
+  &::after {
+    position: relative;
+    border-top: dotted 2px;
+    color: $color_lochmara_approx;
+    content: "";
+    vertical-align: middle;
+    width: 5rem;
+    top: 0.9rem;
+    left: 2.5rem;
+    align-self: start;
+    grid-column: 1;
+    grid-row: 1;
+  }
 }
-
-.main:after {
-  /* display: inline-block; */
-  position: relative;
-  border-top: dotted 2px;
-  color: #088ecf;
-  content: "";
-  vertical-align: middle;
-  width: 5rem;
-  top: 0.9rem;
-  left: 2.5rem;
-  align-self: start;
-  grid-column: 1;
-  grid-row: 1;
-}
-
 .svg-body {
   padding: 0.5rem;
   grid-column: 1;
   grid-row: 1;
 }
-
 .edit {
   align-self: start;
   font-size: 1.25rem;
@@ -111,48 +114,31 @@ html {
   left: 7.8rem;
   cursor: pointer;
 }
-/* .edit:before {
-  display: inline-block;
-  position: relative;
-  border-top: dotted 2px;
-  color: #088ecf;
-  content: "";
-  vertical-align: middle;
-  width: 5rem;
-} */
-
 .flip-horizontally {
   display: inline-block;
   transform: scale(-1, 1);
 }
-
-/* SCROLLBAR */
 .menu-item {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 0 1rem;
-  margin: 0.5rem 0.75rem;
+  margin: 1.2rem 0.75rem;
   user-select: none;
   cursor: pointer;
   opacity: 0.5;
   transition-duration: 0.2s;
   min-height: 3rem;
   font-size: 1.5rem;
+  &:hover {
+    opacity: 1;
+  }
+  &.active {
+    font-size: 1.6rem;
+    opacity: 1;
+  }
 }
-.menu-item:hover {
-  opacity: 1;
-}
-.menu-item.active {
-  font-size: 1.6rem;
-  opacity: 1;
-}
-.menu-item-wrapper.active {
-  border: none;
-}
-
-/* ANIMATIONS */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -160,4 +146,7 @@ html {
   100% {
     opacity: 1;
   }
+}
+.menu-item-wrapper.active {
+  border: none;
 }

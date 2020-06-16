@@ -28,7 +28,7 @@ exports.handler = async (event, context) => {
   const response = {
     statusCode: statusCode,
     headers: {
-      myHeader: "test",
+      myHeader: "water-tracker",
     },
     body: responseBody,
   };

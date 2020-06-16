@@ -14,11 +14,11 @@ const getMessage = (saturation) => {
       return "Oops!";
   }
 };
-export const MotivationText = (props) => {
-  const saturation = (props.total / props.goal) * 100;
+export const MotivationText = ({ total, goal }) => {
+  const saturation = (total / goal) * 100;
   return (
     <div className="motivation-text">
-      <p>{getMessage(saturation)}</p>
+      <span>{getMessage(saturation)}</span>
     </div>
   );
 };

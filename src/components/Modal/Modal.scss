@@ -1,3 +1,10 @@
+//colors
+$white: #ffffff;
+$color_picton_blue_approx: #53bfef;
+
+//data-uris
+$data_uri_0: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='30'><text x='5' y='19' style='font: 1rem Arial; fill: %2353BFEF'> ml</text></svg>";
+
 .modalWrapper {
   position: fixed;
   width: 100%;
@@ -12,7 +19,6 @@
   display: flex;
   align-items: center;
 }
-
 .modalInner {
   position: relative;
   z-index: 30;
@@ -20,13 +26,12 @@
   max-width: 280px;
   margin: 0 auto 80px auto;
   padding: 1.5rem;
-  background: #ffffff;
+  background: $white;
   border-radius: 0.5rem;
-  color: #53bfef;
+  color: $color_picton_blue_approx;
   text-align: center;
   animation: popOut 0.2s ease-out;
 }
-
 @keyframes popOut {
   from {
     transform: scale(0);
@@ -35,7 +40,6 @@
     transform: scale(1);
   }
 }
-
 .close {
   position: absolute;
   right: 0.75rem;
@@ -45,21 +49,18 @@
   font-weight: 900;
   font-size: 1.5rem;
 }
-
 .modal-title {
   font-weight: 600;
   font-size: 1.5rem;
 }
-
 .modal-text {
   margin: 2rem 0;
 }
-
 .modal-input {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="30"><text x="5" y="19" style="font: 1rem Arial; fill: %2353BFEF"> ml</text></svg>')
-    no-repeat;
+  background: url($data_uri_0) no-repeat;
   background-position-x: 75%;
   background-position-y: 50%;
+  //Instead of the line below you could use @include box-sizing($bs)
   box-sizing: border-box;
   padding-right: 40%;
   padding-left: 10%;
@@ -67,15 +68,14 @@
   width: 100%;
   height: 3rem;
   border-radius: 0.5rem;
-  border: #53bfef solid 1px;
+  border: $color_picton_blue_approx solid 1px;
   font-size: 1.2rem;
-  color: #53bfef;
+  color: $color_picton_blue_approx;
 }
-
 .modal-button {
-  color: #ffffff;
+  color: $white;
   font-weight: 600;
-  background-color: #53bfef;
+  background-color: $color_picton_blue_approx;
   padding: 0.75rem;
   width: 100%;
   height: 3rem;

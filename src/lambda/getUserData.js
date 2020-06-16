@@ -5,8 +5,6 @@ exports.handler = async (event, context) => {
   let responseBody = "";
   let statusCode = 0;
 
-  // const { id } = event.pathParameters;
-
   const params = {
     TableName: "UserData",
     Key: {
@@ -15,7 +13,6 @@ exports.handler = async (event, context) => {
   };
 
   try {
-    // const data = await documentClient.scan(params).promise();
     const data = await documentClient.get(params).promise();
     responseBody = data.Item;
     statusCode = 200;
@@ -27,7 +24,7 @@ exports.handler = async (event, context) => {
   const response = {
     statusCode: statusCode,
     headers: {
-      myHeader: "test",
+      myHeader: "water-tracker",
     },
     body: responseBody,
   };
