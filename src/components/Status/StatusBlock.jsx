@@ -1,10 +1,10 @@
 import React from "react";
 
-export const StatusBlock = (props) => {
+export const StatusBlock = ({ position, title, text }) => {
   return (
-    <div className={props.position}>
-      <p className="status-title">{props.title}</p>
-      <p className="status-text">{props.text}</p>
+    <div className={position}>
+      <span className="status-title">{title}</span>
+      <p className="status-text">{text}</p>
     </div>
   );
 };

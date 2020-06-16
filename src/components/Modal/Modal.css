@@ -1,0 +1,99 @@
+.modalWrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 2;
+  background-color: #00000065;
+  display: flex;
+  align-items: center;
+}
+
+.modalInner {
+  position: relative;
+  z-index: 30;
+  width: 60%;
+  max-width: 280px;
+  margin: 0 auto 80px auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  color: #53bfef;
+  text-align: center;
+  animation: popOut 0.2s ease-out;
+}
+
+@keyframes popOut {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.close {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+.modal-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.modal-text {
+  margin: 2rem 0;
+}
+
+.modal-input {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="30"><text x="5" y="19" style="font: 1rem Arial; fill: %2353BFEF"> ml</text></svg>')
+    no-repeat;
+  background-position-x: 75%;
+  background-position-y: 50%;
+  box-sizing: border-box;
+  padding-right: 40%;
+  padding-left: 10%;
+  margin: 0 0 1rem 0;
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: #53bfef solid 1px;
+  font-size: 1.2rem;
+  color: #53bfef;
+}
+
+.modal-button {
+  color: #ffffff;
+  font-weight: 600;
+  background-color: #53bfef;
+  padding: 0.75rem;
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+/* REMOVING ARROWS FROM THE INPUT FIELD */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

@@ -2,7 +2,7 @@ import * as React from "react";
 
 function SvgBody({ saturation }) {
   return (
-    <svg width={146.667} height={344.002}>
+    <svg className="svg-body" width={146.667} height={344.002}>
       <defs>
         <style>
           {
