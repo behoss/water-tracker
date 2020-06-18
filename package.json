@@ -36,6 +36,7 @@
     ]
   },
   "devDependencies": {
-    "@svgr/cli": "^5.4.0"
+    "@svgr/cli": "^5.4.0",
+    "serverless-pseudo-parameters": "^2.5.0"
   }
 }

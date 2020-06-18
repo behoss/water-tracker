@@ -7,9 +7,12 @@ import { Buttons } from "./components/Buttons/Buttons";
 import { Modal } from "./components/Modal/Modal";
 
 export const App = () => {
+  // User
+  let userID = "0";
+
   // HOOKS
-  const [goal, setGoal] = useState([]);
-  const [total, setTotal] = useState([]);
+  const [goal, setGoal] = useState(0);
+  const [total, setTotal] = useState(0);
   const [bottleSize, setBottleSize] = useState(0.25);
   const [showModal, setShowModal] = useState(false);
 
@@ -19,28 +22,38 @@ export const App = () => {
   }, []);
 
   // API
-  const API_GATEWAY =
-    "https://rrtjquqtyc.execute-api.eu-west-2.amazonaws.com/dev/";
+  const API_ENDPOINT = `https://nnedhxridl.execute-api.eu-west-2.amazonaws.com/dev/v1/${userID}`;
 
   const getUserData = async () => {
-    const response = await fetch(API_GATEWAY);
-    const data = await response.json();
-    const { goal, total } = data.body;
-    setGoal(goal);
-    setTotal(total);
-    return data;
+    try {
+      const response = await fetch(API_ENDPOINT);
+      const data = await response.json();
+      if (data !== null || data !== undefined) {
+        const { goal, total } = data;
+        setGoal(goal);
+        setTotal(total);
+        return data;
+      }
+      return;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const putUserData = async ({ goal, total }) => {
-    const response = await fetch(API_GATEWAY, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ goal, total }),
-    });
-    const data = await response.json();
-    return data;
+    try {
+      const response = await fetch(API_ENDPOINT, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ goal, total }),
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // HANDLERS

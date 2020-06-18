@@ -1,0 +1,58 @@
+service: water-tracker
+custom:
+  tableName: waterTrackerTable
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-2
+  environment:
+    DYNAMODB_TABLE: ${self:custom.tableName}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["waterTrackerTable", "Arn"] }
+
+functions:
+  get:
+    handler: handler.get
+    events:
+      - http:
+          path: /v1/{id}
+          method: get
+          cors: true
+  create:
+    handler: handler.create
+    events:
+      - http:
+          path: /v1/{id}
+          method: post
+          cors: true
+  update:
+    handler: handler.update
+    events:
+      - http:
+          path: /v1/{id}
+          method: put
+          cors: true
+
+resources:
+  Resources:
+    waterTrackerTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.tableName}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST

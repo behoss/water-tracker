@@ -1,0 +1,19 @@
+
+GET https://nnedhxridl.execute-api.eu-west-2.amazonaws.com/dev/v1/0
+###
+
+POST https://nnedhxridl.execute-api.eu-west-2.amazonaws.com/dev/v1/0
+
+{
+  "goal": 9,
+  "total": 3.3
+}
+
+###
+
+PUT https://nnedhxridl.execute-api.eu-west-2.amazonaws.com/dev/v1/0
+
+{
+  "goal": 6.6,
+  "total": 2.4
+}
