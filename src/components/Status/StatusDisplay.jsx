@@ -6,7 +6,7 @@ export const StatusDisplay = ({ total, days }) => {
     <div className="grid-wrapper">
       <StatusBlock
         position="left"
-        title={!isNaN(total) ? `${total} L` : ""}
+        title={!isNaN(total) ? `${total / 1000} L` : ""}
         text="TOTAL WATER DRUNK"
       />
       <StatusBlock position="right" title={days} text="ACHIEVED GOAL DAYS" />

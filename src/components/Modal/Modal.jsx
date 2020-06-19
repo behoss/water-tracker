@@ -18,8 +18,8 @@ export const Modal = ({ toggleModal, closeModal, goal, handleUpdate }) => {
             className="modal-input"
             defaultValue={goal}
             min="0"
-            max="10"
-            step="0.01"
+            max="10000"
+            step="1"
             required
           />
           <button type="submit" className="modal-button">

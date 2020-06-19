@@ -5,7 +5,7 @@ const getMessage = (saturation) => {
     case 0 <= saturation && saturation < 20:
       return "Go get your bottle now!";
     case 20 <= saturation && saturation < 50:
-      return "Could use some more today";
+      return "Could use some more water today";
     case 50 <= saturation && saturation < 80:
       return "Great effort! Almost there";
     case 80 <= saturation && saturation <= 100:

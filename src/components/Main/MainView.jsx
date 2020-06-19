@@ -7,7 +7,7 @@ export const MainView = ({ total, goal, handleEdit }) => {
   return (
     <div className="main">
       <Body saturation={total / goal} />
-      <Edit text={!isNaN(goal) ? goal : ""} handleEdit={handleEdit} />
+      <Edit text={!isNaN(goal) ? goal / 1000 : ""} handleEdit={handleEdit} />
     </div>
   );
 };

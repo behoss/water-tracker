@@ -13,12 +13,12 @@ export const App = () => {
   // HOOKS
   const [goal, setGoal] = useState(0);
   const [total, setTotal] = useState(0);
-  const [bottleSize, setBottleSize] = useState(0.25);
+  const [bottleSize, setBottleSize] = useState(250);
   const [showModal, setShowModal] = useState(false);
 
   // This gets user data upon first render
   useEffect(() => {
-    getUserData();
+    getUserData(); // eslint-disable-next-line
   }, []);
 
   // API
@@ -62,35 +62,31 @@ export const App = () => {
   const handleAdd = () => {
     if (total < goal) {
       // prevents the unnecessary API call after reaching the goal
-      const update =
-        total + bottleSize <= goal ? +(total + bottleSize).toFixed(2) : goal;
+      const update = total + bottleSize <= goal ? total + bottleSize : goal;
       putUserData({ goal, total: update });
     }
 
     setTotal((prevTotal) =>
-      prevTotal + bottleSize <= goal
-        ? +(prevTotal + bottleSize).toFixed(2)
-        : goal
+      prevTotal + bottleSize <= goal ? prevTotal + bottleSize : goal
     );
   };
 
   // When clicked on the minus button, then add the bottle size to total & update db and state & don't go below 0
   const handleDeduct = () => {
     if (total > 0) {
-      const update =
-        total - bottleSize >= 0 ? +(total - bottleSize).toFixed(2) : 0;
+      const update = total - bottleSize >= 0 ? total - bottleSize : 0;
       putUserData({ goal, total: update });
     }
 
     setTotal((prevTotal) =>
-      prevTotal - bottleSize >= 0 ? +(prevTotal - bottleSize).toFixed(2) : 0
+      prevTotal - bottleSize >= 0 ? prevTotal - bottleSize : 0
     );
   };
 
   // When select bottle size, then convert it to liters & update state
   const handleSelect = (selectedValue) => {
     // get the value of the scroll bar and parse it to an integer, then to liters
-    setBottleSize(parseInt(selectedValue) / 1000);
+    setBottleSize(parseInt(selectedValue));
   };
 
   // When clicked on x or the button, then close the modal
@@ -108,10 +104,14 @@ export const App = () => {
   // When goal updated in modal, then update db & state, then reset total to 0
   const handleUpdate = (e) => {
     e.preventDefault();
-    const value = +parseFloat(e.target.update.value).toFixed(2);
-    putUserData({ goal: value, total: 0 });
-    setGoal(value);
-    setTotal(0);
+    const updatedGoal = parseInt(e.target.update.value);
+    if (updatedGoal < total) {
+      putUserData({ goal: updatedGoal, total: updatedGoal });
+      setTotal(updatedGoal);
+    } else {
+      putUserData({ goal: updatedGoal, total });
+    }
+    setGoal(updatedGoal);
     toggleModal();
   };
 
@@ -135,7 +135,7 @@ export const App = () => {
       <MotivationText goal={goal} total={total} />
       <Scroll
         list={[100, 250, 350, 450, 550, 1000]}
-        selected={(bottleSize * 1000).toString()}
+        selected={bottleSize.toString()}
         handleSelect={handleSelect}
       />
       <Buttons handleAdd={handleAdd} handleDeduct={handleDeduct} />
