@@ -1,13 +1,5 @@
 import React from "react";
 
-import { Edit } from "./Edit";
-import { Body } from "../../svg";
-
-export const MainView = ({ total, goal, handleEdit }) => {
-  return (
-    <div className="main">
-      <Body saturation={total / goal} />
-      <Edit text={!isNaN(goal) ? goal / 1000 : ""} handleEdit={handleEdit} />
-    </div>
-  );
+export const MainView = ({ children }) => {
+  return <div className="main">{children}</div>;
 };

@@ -5,6 +5,9 @@ import { MotivationText } from "./components/MotivationText";
 import { Scroll } from "./components/Scroll";
 import { Buttons } from "./components/Buttons/Buttons";
 import { Modal } from "./components/Modal/Modal";
+import { StatusBlock } from "./components/Status/StatusBlock";
+import { Body, Plus, Minus } from "./svg/";
+import { Edit } from "./components/Main/Edit";
 
 export const App = () => {
   // User
@@ -120,6 +123,9 @@ export const App = () => {
     setShowModal(true);
   };
 
+  // REUSABLE FUNCTIONS
+  const onlyShowTwoDecimals = (value) => value.toString().slice(0, 4);
+
   return (
     <div className="container">
       {showModal && (
@@ -130,15 +136,41 @@ export const App = () => {
           handleUpdate={handleUpdate}
         />
       )}
-      <StatusDisplay total={total} days={15} />
-      <MainView goal={goal} total={total} handleEdit={handleEdit} />
+      <StatusDisplay>
+        <StatusBlock
+          position="left"
+          title={
+            typeof total === "number"
+              ? `${onlyShowTwoDecimals(total / 1000)} L`
+              : ""
+          }
+          text="TOTAL WATER DRUNK"
+        />
+        <StatusBlock position="right" title={15} text="ACHIEVED GOAL DAYS" />
+      </StatusDisplay>
+      <MainView>
+        <Body saturation={total / goal} />
+        <Edit
+          text={
+            typeof goal === "number" ? onlyShowTwoDecimals(goal / 1000) : ""
+          }
+          handleEdit={handleEdit}
+        />
+      </MainView>
       <MotivationText goal={goal} total={total} />
       <Scroll
         list={[100, 250, 350, 450, 550, 1000]}
         selected={bottleSize.toString()}
         handleSelect={handleSelect}
       />
-      <Buttons handleAdd={handleAdd} handleDeduct={handleDeduct} />
+      <Buttons>
+        <button className="btn right" type="button" onClick={handleDeduct}>
+          <Minus />
+        </button>
+        <button className="btn left" type="button" onClick={handleAdd}>
+          <Plus />
+        </button>
+      </Buttons>
     </div>
   );
 };
