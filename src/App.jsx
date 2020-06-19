@@ -35,6 +35,7 @@ export const App = () => {
         const { goal, total } = data;
         setGoal(goal);
         setTotal(total);
+        console.info("[GET]", data);
         return data;
       }
       return;
@@ -53,6 +54,7 @@ export const App = () => {
         body: JSON.stringify({ goal, total }),
       });
       const data = await response.json();
+      console.info("[UPDATE]", data.Attributes);
       return data;
     } catch (error) {
       console.error(error);
@@ -63,33 +65,34 @@ export const App = () => {
 
   // When clicked on the plus button, then deduct the bottle size from total & update db and state & don't go above the goal
   const handleAdd = () => {
+    console.info("[INCREMENT]", bottleSize);
     if (total < goal) {
-      // prevents the unnecessary API call after reaching the goal
-      const update = total + bottleSize <= goal ? total + bottleSize : goal;
-      putUserData({ goal, total: update });
+      const update = (value) => {
+        return value + bottleSize < goal ? value + bottleSize : goal;
+      };
+      putUserData({ goal, total: update(total) });
+      setTotal((prevTotal) => update(prevTotal));
     }
-
-    setTotal((prevTotal) =>
-      prevTotal + bottleSize <= goal ? prevTotal + bottleSize : goal
-    );
   };
 
   // When clicked on the minus button, then add the bottle size to total & update db and state & don't go below 0
   const handleDeduct = () => {
+    console.info("[DECREMENT]", bottleSize);
     if (total > 0) {
-      const update = total - bottleSize >= 0 ? total - bottleSize : 0;
-      putUserData({ goal, total: update });
+      const update = (value) => {
+        return value - bottleSize > 0 ? value - bottleSize : 0;
+      };
+      putUserData({ goal, total: update(total) });
+      setTotal((prevTotal) => update(prevTotal));
     }
-
-    setTotal((prevTotal) =>
-      prevTotal - bottleSize >= 0 ? prevTotal - bottleSize : 0
-    );
   };
 
   // When select bottle size, then convert it to liters & update state
-  const handleSelect = (selectedValue) => {
+  const handleSelect = (value) => {
+    const selectedValue = parseInt(value);
+    console.info("[SELECT]", selectedValue);
     // get the value of the scroll bar and parse it to an integer, then to liters
-    setBottleSize(parseInt(selectedValue));
+    setBottleSize(selectedValue);
   };
 
   // When clicked on x or the button, then close the modal
@@ -108,6 +111,7 @@ export const App = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     const updatedGoal = parseInt(e.target.update.value);
+    console.info("[CHANGE]", updatedGoal);
     if (updatedGoal < total) {
       putUserData({ goal: updatedGoal, total: updatedGoal });
       setTotal(updatedGoal);
@@ -139,11 +143,7 @@ export const App = () => {
       <StatusDisplay>
         <StatusBlock
           position="left"
-          title={
-            typeof total === "number"
-              ? `${onlyShowTwoDecimals(total / 1000)} L`
-              : ""
-          }
+          title={`${onlyShowTwoDecimals(total / 1000)} L`}
           text="TOTAL WATER DRUNK"
         />
         <StatusBlock position="right" title={15} text="ACHIEVED GOAL DAYS" />
@@ -151,9 +151,7 @@ export const App = () => {
       <MainView>
         <Body saturation={total / goal} />
         <Edit
-          text={
-            typeof goal === "number" ? onlyShowTwoDecimals(goal / 1000) : ""
-          }
+          text={`${onlyShowTwoDecimals(goal / 1000)} L`}
           handleEdit={handleEdit}
         />
       </MainView>
